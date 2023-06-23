@@ -37,7 +37,11 @@ public class RewardsRestController {
             throw new CustomerNotFoundException("Customer id is not found - " + customerId);
         }
 
+        logger.info("Start to calculate rewards point for customer: " + customer);
+
         Rewards customerRewards = rewardsService.getRewardsByCustomerId(customerId);
+
+        logger.info("Finish calculating rewards point for customer: " + customer);
 
         return new ResponseEntity<>(customerRewards, HttpStatus.OK);
 
