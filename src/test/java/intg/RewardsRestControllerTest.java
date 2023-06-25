@@ -37,8 +37,9 @@ public class RewardsRestControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    // normal case
     @Test
-    public void testApplication() throws Exception {
+    public void testApplication_normal() throws Exception {
 
         Customer customer = new Customer(1L,"Mike");
 
@@ -56,6 +57,44 @@ public class RewardsRestControllerTest {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("{\"customerId\":1,\"lastMonthRewardPoints\":70,\"lastSecondMonthRewardPoints\":0,\"lastThirdMonthRewardPoints\":0,\"totalRewards\":70}"));
+    }
+
+    //user not found
+    @Test
+    public void testApplication_user_not_Found() throws Exception {
+
+        Customer customer = new Customer(1L,"Mike");
+
+        Timestamp timestamp = Timestamp.valueOf("2023-06-20 10:30:30");
+
+        Transaction transaction = new Transaction(4L,1L, timestamp,110);
+
+        customerRepository.save(customer);
+
+        transactionRepository.save(transaction);
+
+        mvc.perform(get("http://localhost:8080/customer/2/rewards")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    //bad request
+    @Test
+    public void testApplication_bad_request() throws Exception {
+
+        Customer customer = new Customer(1L,"Mike");
+
+        Timestamp timestamp = Timestamp.valueOf("2023-06-20 10:30:30");
+
+        Transaction transaction = new Transaction(4L,1L, timestamp,110);
+
+        customerRepository.save(customer);
+
+        transactionRepository.save(transaction);
+
+        mvc.perform(get("http://localhost:8080/customer/l/rewards")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 
 }
