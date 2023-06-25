@@ -34,7 +34,7 @@ public class RewardsRestExceptionHandler {
 
         // return ResponseEntity
 
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -6,7 +6,7 @@ Run the main class of this project
 
 Connect to the H2 database. In you browser, use http://localhost:8080/h2-console to login. (Using the credentials from application.properties file)
 
-The script will automatically run on H2
+Run the script.sql in H2 console to create data in db
 
 Use Postman or other tool to grab the outcome http://localhost:8080/customers/{customerId}/rewards
 
@@ -23,3 +23,15 @@ In repository layer, we extends CrudRepository to handle the basic query for us 
 #Unit Test
 
 Changing the IntelliJ settings for 'Gradle -> Run Tests Using' from 'Gradle (default)' to 'IntelliJ IDEA'.
+
+#To Do
+
+Add JWT token interceptor to secure proj
+
+Enrich requests
+
+Convert to more db
+
+Connect to AWS
+
+..
